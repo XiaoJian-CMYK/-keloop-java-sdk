@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import io.github.oneincase.config.BaseConfig;
 import io.github.oneincase.core.KeloopRes;
@@ -20,7 +21,7 @@ public class HttpHandler {
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=UTF-8";
 
     /**
-     * 请求超时时间
+     * 请求超时时间 默认3s
      */
     private static final int TIMEOUT = 3000;
 
@@ -36,13 +37,17 @@ public class HttpHandler {
     public static KeloopRes http(String url, ReqTypeEnum reqTypeEnum, ReqBaseParams reqBaseParams, BaseConfig baseConfig) {
         System.out.println(StrUtil.format("【==快跑者== 请求类型: {} ,请求地址: {}】", reqTypeEnum.name(), url));
         ReqBaseParams params = SignUtils.setSign(reqBaseParams, baseConfig);
-        String body = MapUtil.join(JSONUtil.parseObj(params), "&", "=", "");
+        JSONObject jsonObject = JSONUtil.parseObj(params);
+        // 判断body是否为null 为null默认设值为“[]”
+        jsonObject.putIfAbsent("body", "[]");
+        String body = MapUtil.join(jsonObject, "&", "=", "");
         System.out.println(StrUtil.format("【==快跑者== 请求参数: {}】", body));
         KeloopRes keloopRes = null;
+        Integer timeout = baseConfig.getTimeout() != null ? baseConfig.getTimeout() : TIMEOUT;
         if ("GET".equals(reqTypeEnum.name())) {
-            keloopRes = get(url, body);
+            keloopRes = get(url, body, timeout);
         } else if ("POST".equals(reqTypeEnum.name())) {
-            keloopRes = post(url, body);
+            keloopRes = post(url, body, timeout);
         }
         if (keloopRes == null) throw new RespException("接口响应异常，请检查！");
         if (keloopRes.getCode() == 204) {
@@ -63,11 +68,11 @@ public class HttpHandler {
      * @param body 请求基础参数对象
      * @return 快跑者统一相应类
      */
-    private static KeloopRes get(String url, String body) {
+    private static KeloopRes get(String url, String body, Integer timeout) {
         String res = HttpRequest.get(url)
                 .header(Header.CONTENT_TYPE, CONTENT_TYPE)
                 .body(body)
-                .timeout(TIMEOUT)
+                .timeout(timeout)
                 .execute().body();
         return JSONUtil.toBean(res, KeloopRes.class);
     }
@@ -78,14 +83,13 @@ public class HttpHandler {
      * @param url 请求url
      * @return 快跑者统一相应类
      */
-    private static KeloopRes post(String url, String body) {
+    private static KeloopRes post(String url, String body, Integer timeout) {
         String res = HttpRequest.post(url)
                 .header(Header.CONTENT_TYPE, CONTENT_TYPE)
                 .body(body)
-                .timeout(TIMEOUT)
+                .timeout(timeout)
                 .execute().body();
         return JSONUtil.toBean(res, KeloopRes.class);
     }
-
 
 }

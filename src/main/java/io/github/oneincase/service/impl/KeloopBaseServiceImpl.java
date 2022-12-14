@@ -5,18 +5,18 @@ import io.github.oneincase.core.KeloopRes;
 import io.github.oneincase.core.ReqBaseParams;
 import io.github.oneincase.enums.ReqTypeEnum;
 import io.github.oneincase.handler.HttpHandler;
-import io.github.oneincase.service.BaseService;
+import io.github.oneincase.service.KeloopBaseService;
 
 import java.util.Map;
 
-public class BaseServiceImpl implements BaseService {
+public class KeloopBaseServiceImpl implements KeloopBaseService {
 
     /**
      * 快跑者基础配置类
      */
     private final BaseConfig baseConfig;
 
-    public BaseServiceImpl(BaseConfig baseConfig) {
+    public KeloopBaseServiceImpl(BaseConfig baseConfig) {
         this.baseConfig = baseConfig;
     }
 

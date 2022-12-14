@@ -30,10 +30,12 @@ public class SignUtils {
     public static ReqBaseParams setSign(ReqBaseParams reqBaseParams, BaseConfig baseConfig) {
         if (StrUtil.isBlank(baseConfig.getDevSecret())) throw new ConfigException("签名密钥不能为空");
         // 1.参数过滤（剔除参数名为 sign、sign_type、key 的参数及参数值为 '' 或 null 的参数）
+        Map<String, Object> filterMap = MapUtil.filter(JSONUtil.parseObj(reqBaseParams),
+                r -> StrUtil.isNotBlank(r.getKey()) && !EXCEPTION.contains(r.getKey()) && !StrUtil.isBlankIfStr(r.getValue()));
+        // 判断是否存在body 不存在则设置成“[]”
+        if (!filterMap.containsKey("body") || filterMap.get("body") == null) filterMap.put("body", "[]");
         // 2.按照参数名第一个字符的键值 ASCII 码递增排序（字母升序排序），如果遇到相同字符则按照第二个字符的键值 ASCII 码递增排序，以此类推
-        Map<String, Object> map = MapUtil
-                .sort(MapUtil.filter(JSONUtil.parseObj(reqBaseParams),
-                        r -> StrUtil.isNotBlank(r.getKey()) && !EXCEPTION.contains(r.getKey()) && !StrUtil.isBlankIfStr(r.getValue())));
+        Map<String, Object> map = MapUtil.sort(filterMap);
         String signStr = MapUtil.join(map, "&", "=", false, baseConfig.getDevSecret());
         System.out.println(StrUtil.format("【==快跑者== 待签名字符串: {}】", signStr));
         Digester md5 = new Digester(DigestAlgorithm.MD5);

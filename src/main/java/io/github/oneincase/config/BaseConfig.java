@@ -25,4 +25,9 @@ public class BaseConfig {
      */
     private String teamToken;
 
+    /**
+     * 请求超时时间
+     */
+    private Integer timeout;
+
 }

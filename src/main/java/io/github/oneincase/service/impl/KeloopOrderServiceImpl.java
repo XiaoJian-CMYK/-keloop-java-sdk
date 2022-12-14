@@ -5,15 +5,15 @@ import io.github.oneincase.core.KeloopRes;
 import io.github.oneincase.core.OrderBase;
 import io.github.oneincase.enums.OrderUrlEnum;
 import io.github.oneincase.query.order.*;
-import io.github.oneincase.service.BaseService;
+import io.github.oneincase.service.KeloopBaseService;
 import io.github.oneincase.service.KeloopOrderService;
 
 public class KeloopOrderServiceImpl implements KeloopOrderService {
 
-    private final BaseService baseService;
+    private final KeloopBaseService keloopBaseService;
 
-    public KeloopOrderServiceImpl(BaseService baseService) {
-        this.baseService = baseService;
+    public KeloopOrderServiceImpl(KeloopBaseService keloopBaseService) {
+        this.keloopBaseService = keloopBaseService;
     }
 
     /**
@@ -24,7 +24,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes createOrder(KeloopCreateOrderQuery keloopCreateOrderQuery) {
-        return baseService.http(OrderUrlEnum.CREATE_ORDER.getUrl(), OrderUrlEnum.CREATE_ORDER.getReqTypeEnum(), JSONUtil.parseObj(keloopCreateOrderQuery));
+        return keloopBaseService.http(OrderUrlEnum.CREATE_ORDER.getUrl(), OrderUrlEnum.CREATE_ORDER.getReqTypeEnum(), JSONUtil.parseObj(keloopCreateOrderQuery));
     }
 
     /**
@@ -35,7 +35,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes getOrderInfo(OrderBase orderBase) {
-        return baseService.http(OrderUrlEnum.GET_ORDER_INFO.getUrl(), OrderUrlEnum.GET_ORDER_INFO.getReqTypeEnum(), JSONUtil.parseObj(orderBase));
+        return keloopBaseService.http(OrderUrlEnum.GET_ORDER_INFO.getUrl(), OrderUrlEnum.GET_ORDER_INFO.getReqTypeEnum(), JSONUtil.parseObj(orderBase));
     }
 
     /**
@@ -46,7 +46,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes getOrderLog(OrderBase orderBase) {
-        return baseService.http(OrderUrlEnum.GET_ORDER_LOG.getUrl(), OrderUrlEnum.GET_ORDER_LOG.getReqTypeEnum(), JSONUtil.parseObj(orderBase));
+        return keloopBaseService.http(OrderUrlEnum.GET_ORDER_LOG.getUrl(), OrderUrlEnum.GET_ORDER_LOG.getReqTypeEnum(), JSONUtil.parseObj(orderBase));
     }
 
     /**
@@ -57,7 +57,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes getCourierTag(OrderBase orderBase) {
-        return baseService.http(OrderUrlEnum.GET_COURIER_TAG.getUrl(), OrderUrlEnum.GET_COURIER_TAG.getReqTypeEnum(), JSONUtil.parseObj(orderBase));
+        return keloopBaseService.http(OrderUrlEnum.GET_COURIER_TAG.getUrl(), OrderUrlEnum.GET_COURIER_TAG.getReqTypeEnum(), JSONUtil.parseObj(orderBase));
     }
 
     /**
@@ -68,7 +68,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes commentOrder(KeloopCommentOrderQuery keloopCommentOrderQuery) {
-        return baseService.http(OrderUrlEnum.COMMENT_ORDER.getUrl(), OrderUrlEnum.COMMENT_ORDER.getReqTypeEnum(), JSONUtil.parseObj(keloopCommentOrderQuery));
+        return keloopBaseService.http(OrderUrlEnum.COMMENT_ORDER.getUrl(), OrderUrlEnum.COMMENT_ORDER.getReqTypeEnum(), JSONUtil.parseObj(keloopCommentOrderQuery));
     }
 
     /**
@@ -79,7 +79,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes getFee(KeloopGetFeeQuery keloopGetFeeQuery) {
-        return baseService.http(OrderUrlEnum.GET_FEE.getUrl(), OrderUrlEnum.GET_FEE.getReqTypeEnum(), JSONUtil.parseObj(keloopGetFeeQuery));
+        return keloopBaseService.http(OrderUrlEnum.GET_FEE.getUrl(), OrderUrlEnum.GET_FEE.getReqTypeEnum(), JSONUtil.parseObj(keloopGetFeeQuery));
     }
 
     /**
@@ -90,7 +90,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes cancelOrder(KeloopCancelOrderQuery keloopCancelOrderQuery) {
-        return baseService.http(OrderUrlEnum.CANCEL_ORDER.getUrl(), OrderUrlEnum.CANCEL_ORDER.getReqTypeEnum(), JSONUtil.parseObj(keloopCancelOrderQuery));
+        return keloopBaseService.http(OrderUrlEnum.CANCEL_ORDER.getUrl(), OrderUrlEnum.CANCEL_ORDER.getReqTypeEnum(), JSONUtil.parseObj(keloopCancelOrderQuery));
     }
 
     /**
@@ -101,7 +101,7 @@ public class KeloopOrderServiceImpl implements KeloopOrderService {
      */
     @Override
     public KeloopRes incrOrderTip(KeloopIncrOrderTipQuery keloopIncrOrderTipQuery) {
-        return baseService.http(OrderUrlEnum.INCR_ORDER_TIP.getUrl(), OrderUrlEnum.INCR_ORDER_TIP.getReqTypeEnum(), JSONUtil.parseObj(keloopIncrOrderTipQuery));
+        return keloopBaseService.http(OrderUrlEnum.INCR_ORDER_TIP.getUrl(), OrderUrlEnum.INCR_ORDER_TIP.getReqTypeEnum(), JSONUtil.parseObj(keloopIncrOrderTipQuery));
     }
 
 }

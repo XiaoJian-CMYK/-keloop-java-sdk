@@ -43,4 +43,15 @@
 
     </dependencies>
 
+    <build>
+        <!-- 打包名格式 项目名+版本 -->
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

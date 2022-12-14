@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>io.github.oneincase</groupId>
     <artifactId>keloop-java-sdk</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
-    <url>https://github.com/oneincase/keloop-java-sdk</url>
+
+    <name>keloop java sdk</name>
     <description>快跑者平台正式版接口接入SDK</description>
+    <url>https://github.com/oneincase/keloop-java-sdk</url>
 
     <!-- 开源签名证书 -->
     <licenses>
@@ -25,6 +25,15 @@
         <developerConnection>scm:git@github.com:oneincase/keloop-java-sdk.git</developerConnection>
         <url>https://github.com/oneincase/keloop-java-sdk</url>
     </scm>
+    <!-- 开发人员信息 -->
+    <developers>
+        <developer>
+            <name>oneincase</name>
+            <email>462534624@qq.com</email>
+            <organization>https://github.com/oneincase</organization>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
     <!-- 发布项目到 sonatype -->
     <distributionManagement>
         <snapshotRepository>
